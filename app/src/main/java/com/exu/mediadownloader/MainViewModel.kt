@@ -33,9 +33,8 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
     fun startDirectDownload(url: String) {
         val name = url.substringAfterLast('/').substringBefore('?').ifBlank { "download.bin" }
         _downloads.value = listOf(
-            DownloadUi(url = url, fileName = name, status = "Queued"),
-            *_downloads.value
-        )
+            DownloadUi(url = url, fileName = name, status = "Queued")
+        ) + _downloads.value
         viewModelScope.launch {
             val index = 0
             _downloads.value = _downloads.value.toMutableList().also {
