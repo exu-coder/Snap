@@ -17,6 +17,19 @@ android {
         versionName = "0.1.0"
     }
 
+    signingConfigs {
+        getByName("debug")
+    }
+
+    buildTypes {
+        release {
+            // CI release APK is signed with the Android debug keystore so it can be installed.
+            // Replace this with a private production keystore before Play Store distribution.
+            signingConfig = signingConfigs.getByName("debug")
+            isMinifyEnabled = false
+        }
+    }
+
     buildFeatures { compose = true }
 
     compileOptions {
